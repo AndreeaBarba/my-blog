@@ -1,5 +1,7 @@
+<h3>Edit comment</h3>
+
 <%= render partial: "pages/errors", locals: { errors: @errors } if @errors %>
-<%= form_for([@post, @post.comments.build]) do |f| %>
+<%= form_for([@post, @comment]) do |f| %>
     <%= f.label :name %><br>
     <%= f.text_field :name %><br>
 

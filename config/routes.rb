@@ -8,11 +8,8 @@ Rails.application.routes.draw do
 
   get '/about', to: 'pages#about'
 
-  resources :users
-
-
-
-  get 'login' => 'sessions#new'
-  post 'login' => 'sessions#create'
-  get 'logout' => 'sessions#destroy'
+  resources :users, only: [:new, :create, :show]
+  resources :sessions, only: [:new, :create]
+  get '/logout', to: 'sessions#destroy'
+  get '/not_authorized', to: 'pages#not_authorized'
 end

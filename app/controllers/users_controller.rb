@@ -10,9 +10,9 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = "You signed up successfully!"
       session[:user_id] = @user.id
-      redirect_to '/'
+      redirect_to root_path
     else
-      flash[:notice] = "Form is invalid"
+      @errors = @user.errors.full_messages
       render 'new'
     end
   end

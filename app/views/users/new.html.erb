@@ -2,17 +2,8 @@
 
 <%= form_for :user, url: '/users' do |f| %>
 
-  <% if @user.errors.any? %>
-    <div class="errors">
-      <!-- pluralize: if there is more than 1 error, it will pluralize "error"; elase it will just be 'error' -->
-      <h3><%= pluralize(@user.errors.count, "error") %> prevented this post from saving.</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <%= render partial: "pages/errors", locals: { errors: @errors } if @errors %>
+
   <p>
     <%= f.label :username %>
     <%= f.text_field :username%>
