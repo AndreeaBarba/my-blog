@@ -1,0 +1,10 @@
+<h3><%= @user.username %>'s profile page</h3>
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <ul>
+      <li><%= link_to post.title, post %>
+        <p><%= post.created_atstrftime("%B, %d, %y") %></p>
+      </li>
+    </ul>
+  <% end %>
+<% end %>
