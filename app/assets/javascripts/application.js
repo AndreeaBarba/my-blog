@@ -10,5 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require_tree .
+$(document).ready(function(){
+  $("a[data-remote=true]").on("ajax:success", function(e){
+    console.log($(this))
+    var listItem = $(e.target).closest('.comment-content');
+    console.log(listItem)
+    // listItem.remove();
+  });
+});

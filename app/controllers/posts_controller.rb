@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate!, except: [:index, :show]
+  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action -> { authorize!(@post.author)}, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all.order('created_at DESC')
@@ -11,34 +14,33 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
+      flash[:notice] = "You have successfully created a new post!"
+      current_user.posts << @post
       redirect_to @post
     else
+      @errors = @post.errors.full_messages
       render 'new'
     end
   end
 
   def show
-    @post = Post.find(params[:id])
-    p @post
+    @post = Post.find_by(id: params[:id])
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(params[:post].permit(:title, :body))
+    if @post.update(post_params)
       redirect_to @post
     else
+      @errors = @post.errors.full_messages
       render 'edit'
     end
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
-
     redirect_to root_path
   end
 
@@ -46,6 +48,10 @@ class PostsController < ApplicationController
   # you have to define or explicitly say what parameters you want to allow
   def post_params
     params.require(:post).permit(:title, :body)
+  end
+
+  def find_post
+    @post = Post.find_by(id: params[:id])
   end
 
 end

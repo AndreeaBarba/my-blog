@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
 
   def authenticate!
-    redirect '/login' unless logged_in?
+    redirect_to new_session_path unless logged_in?
   end
   helper_method :authenticate!
 

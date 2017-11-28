@@ -1,15 +1,5 @@
+<%= render partial: "pages/errors", locals: { errors: @errors } if @errors %>
 <%= form_for @post do |f| %>
-  <% if @post.errors.any? %>
-    <div class="errors">
-      <!-- pluralize: if there is more than 1 error, it will pluralize "error"; elase it will just be 'error' -->
-      <h3><%= pluralize(@post.errors.count, "error") %> prevented this post from saving.</h3>
-      <ul>
-        <% @post.errors.full_messages.each do |error| %>
-        <li><%= error %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>

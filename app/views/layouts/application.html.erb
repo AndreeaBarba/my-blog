@@ -12,8 +12,8 @@
     <div id="sidebar">
       <% if !current_user %>
         <div id="button">
-          <button class="button"><%= link_to 'Log in', '/login' %></button>
-          <button class="button"><%= link_to 'Sign up', 'users/new' %></button>
+          <button class="button"><%= link_to 'Log in', new_session_path %></button>
+          <button class="button"><%= link_to 'Sign up', new_user_path %></button>
         </div>
       <% end %>
       <ul>
@@ -22,18 +22,21 @@
       </ul>
     </div>
 
-    <div class="main_content">
-      <% if current_user %>
-        <div class="buttons">
-          <button class="button"><%= link_to "New post", new_post_path %></button>
-          <button class="button"><%= link_to "Log out", '/logout' %></button>
-        </div>
-      <% end %>
-    </div>
+    <div id="main_content">
+      <div id="header">
+        <% if current_user %>
+          <div class="buttons">
+              <button class="button"><%= link_to "New post", new_post_path %></button>
+              <button class="button"><%= link_to "Log out", logout_path %></button>
+          </div>
+        <% end %>
+      </div>
+    <!-- </div> -->
     <% flash.each do |name, message| %>
       <%= content_tag(:div, message, class: "alert") %>
     <% end %>
     <%= yield %>
+  </div>
   </body>
 </html>
 

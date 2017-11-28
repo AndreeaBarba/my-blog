@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+ class User < ApplicationRecord
   include BCrypt
 
   has_many :posts, foreign_key: :author_id, class_name: "Post"
